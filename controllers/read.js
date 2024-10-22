@@ -1,4 +1,4 @@
-import { City , Destination} from "../models/City.js";
+import City from "../models/City.js";
 
 let allcities = async (req, res) => {
     try {
