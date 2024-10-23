@@ -43,4 +43,29 @@ let citiesId = async (req, res) => {
       }
     }
 
-export { allcities, alldestinations, citiesId }
+let citybyname = async (req, res) => {
+    try {
+        const cityname = req.params.name;
+        const city = await City.findOne({title: cityname});
+    
+        if (!city) {
+          return res.status(404).json({ 
+            message: 'City not found',
+            success: false 
+          });
+        }
+    
+        return res.status(200).json({
+          response: city,
+          success: true
+        });
+      } catch (error) {
+        return res.status(500).json({
+          message: 'Error retrieving city',
+          success: false,
+          error: error.message
+        });
+      }
+}
+
+export { allcities, alldestinations, citiesId, citybyname }
