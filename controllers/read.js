@@ -1,4 +1,5 @@
 import City from "../models/City.js";
+import Itinerary from "../models/Mytinerary.js";
 
 let allcities = async (req, res) => {
     try {
@@ -73,4 +74,27 @@ let citybyname = async (req, res) => {
       }
 }
 
-export { allcities, alldestinations, citiesId, citybyname }
+let alltineraries = async (req, res) => {
+    try {
+        const all = await Itinerary.find();
+        return res.status(200).json({response:all});
+    } catch (error) {
+        return res.status(500).json({message: error.message});
+    }
+}
+
+let getItinerariesByCity = async (req, res) => {
+  try {
+      const  cityId = req.params.id;
+      const itineraries = await Itinerary.find({ city: cityId });
+      return res.status(200).json({
+          response: itineraries
+      });
+  } catch (error) {
+      return res.status(500).json({
+          message: error.message
+      });
+  }
+};
+
+export { allcities, alldestinations, citiesId, citybyname, alltineraries, getItinerariesByCity };
