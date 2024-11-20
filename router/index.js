@@ -1,8 +1,12 @@
 import { Router } from "express";
-import routers from "./citiesR.js";
+import citiesRouter from "./citiesR.js";
+import usersRouter from "./usersR.js";
+import authRouter from "./authR.js";
 
 const router = Router();
 
-router.use("/cities", routers);
+router.use("/cities", citiesRouter);
+router.use("/users", usersRouter);
+router.use("/auth", authRouter);
 
 export default router;
