@@ -14,3 +14,6 @@ npm i cors
 npm i morgan
 npm install bcrypt jsonwebtoken
 npm install joi
+npm install passport
+npm install passport-google-oauth20
+npm install passport-jwt
