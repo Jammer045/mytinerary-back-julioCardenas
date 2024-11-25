@@ -6,7 +6,9 @@ import findUser from '../middlewarses/findUser.js';
 import isPasswordValid from '../middlewarses/passwordValidator.js';
 import generateToken from '../middlewarses/generateToken.js';
 import passport from '../middlewarses/passport.js';
+import googleSignIn from '../controllers/Auth/signin-Google.js';
 import passportGoogle from '../middlewarses/passportGoogle.js';
+import handleGoogleAuthCallback from '../middlewarses/googlereturn.js';
 
 const router = Router();
 
@@ -29,13 +31,16 @@ router.get('/verify-token',
 
 router.get('/signin/google', 
     passportGoogle.authenticate('google', { scope: ['profile', 'email'], session: false }), 
-    signIn
+    googleSignIn
 );
 
 router.get('/signin/google/callback', 
-    passportGoogle.authenticate('google', { session: false, failureRedirect: '/signin' }), 
+    passportGoogle.authenticate('google', { 
+        session: false,
+        failureRedirect: 'http://localhost:5173/signin' 
+    }), 
     generateToken,
-    signIn
+    handleGoogleAuthCallback  
 );
 
 export default router;
